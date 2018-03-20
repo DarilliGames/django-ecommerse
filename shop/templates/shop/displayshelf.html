@@ -1,0 +1,20 @@
+{% extends 'home/base.html' %}
+{% load bootstrap_tags %}
+{% block content %}
+    <h1>This is where you write a blog page</h1>
+    <div class="container-fluid">
+        <div class="row">
+        {% for p in prods %}
+            <div class="col-sm-3">
+                <div class="inner">
+                    <h2>{{ p.title }}</h2>
+                    <p>{{ p.content }}</p>
+                    <p>Price: €{{ p.price }}</p>
+                <img src="{{ MEDIA_URL }}{{ p.image }}" style="max-height:100%; max-width:100%"/>
+                </div>
+            </div>
+        
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

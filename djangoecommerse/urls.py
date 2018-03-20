@@ -16,11 +16,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.static import serve
+from django.conf import settings
+
 from home.views import get_index
 from accounts import urls as accounts_urls
+from shop import urls as shop_urls
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', get_index, name='home'),
     url(r'^accounts/', include(accounts_urls)),
+    url(r'^shop/', include(shop_urls)),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]

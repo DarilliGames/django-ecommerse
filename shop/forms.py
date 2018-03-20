@@ -5,5 +5,5 @@ class SellItemForm(forms.ModelForm):
     
     class Meta:
         model = SellItem
-        fields = ('title', 'content', 'image')
+        fields = ('title', 'content', 'price', 'max_buy', 'image')
         

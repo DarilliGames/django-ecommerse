@@ -1,0 +1,16 @@
+{% extends 'home/base.html' %}
+{% load bootstrap_tags %}
+{% block content %}
+    <h1>This is where you write a blog page</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="inner">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.content }}</p>
+                    <img src="{{ MEDIA_URL }}{{ item.image }}" style="max-width:100%"/>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
