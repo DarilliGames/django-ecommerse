@@ -25,7 +25,7 @@ SECRET_KEY = str(os.environ.get('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djangoecommerse-smoody.c9users.io']
+ALLOWED_HOSTS = ['djangoecommerse-smoody.c9users.io', 'djangoecommersetest.herokuapp.com']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
