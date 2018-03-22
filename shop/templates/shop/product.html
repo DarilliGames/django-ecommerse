@@ -4,12 +4,21 @@
     <h1>This is where you write a blog page</h1>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset">
-                <div class="inner">
+            <div class="col-sm-8 inner">
+                <div class="col-sm-12">
                     <h3>{{ item.title }}</h3>
-                    <p>{{ item.content }}</p>
-                    <img src="{{ MEDIA_URL }}{{ item.image }}" style="max-width:100%"/>
+                    <div class="col-sm-6"><img src="{{ MEDIA_URL }}{{ item.image }}" style="max-width:100%"/></div>
+                    <div class="col-sm-6"><p>{{ item.content }}</p></div>
                     
+                </div>
+                <div>    
+                    
+                    
+                    
+                    
+                    
+                                        <!--                        This is leaving an actual review                       -->
+                    {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'reviewit' item.id %}">
                         {% csrf_token %}
                         {{ reviewform | as_bootstrap }}
@@ -20,11 +29,19 @@
                         <button id="4" onmouseover="mouseOver(5)" onmouseout="mouseOut(5)" type="submit" name="score" value="5"><i id="s5" {% if item.average_rating > 4.5 %} style="color:gold" {% endif %} class="fa fa-star"></i></button>
                         
                     </form>
+                    {% else %}
+                    <h2>Login to leave a review</h2>
+                    {% endif %}
                     
                 </div>
                     
             
             </div>
+            
+            
+            
+                                                <!--                        REVIEW SIDEBAR                      -->
+            
             <div class="col-sm-4">
                 <div class="inner" style="background-color: lightblue">
                     <div style="text-align: center; background-color: white; margin: 5px 30px 0px 30px; border-radius: 10px">
@@ -37,23 +54,21 @@
                         <i {% if item.average_rating > 3.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
                         <i {% if item.average_rating > 4.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
                         
-                        <p>Average Rating: {{item.average_rating }} Reviews: {{ item.reviews }}</p>
+                        <p>Average Rating: {{item.average_rating|floatformat:"1" }}/5 Reviews: {{ item.reviews }}</p>
                         {% else %}
                         <p>This Item Has Not Been Reviewed</p>
                         <p>Be the first to review this product</p>
                         {% endif %}
                     </div>
                 {% for r in reviews %}
-                    <div>
-                        <h3>{{ r.title }}</h3>
+                    <div style="background-color: white; border-radius: 5px; margin: 5px;">
+                        <h3 style="text-align: center">{{ r.title }}</h3>
                         <p>{{ r.content }}</p>
-                        
-                        <p> <i style="color:gold" class="fa fa-star"></i>
+                        <p style="text-align: right"><i style="color:gold" class="fa fa-star"></i>
                         <i {% if r.rating > 1.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
                         <i {% if r.rating > 2.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
                         <i {% if r.rating > 3.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
                         <i {% if r.rating > 4.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>{{ r.author }}</p>
-                        
                     </div>
                 {% endfor %}
                 </div>
@@ -61,9 +76,7 @@
         </div>
     </div>
     <script>
-    // document.getElementById("1").addEventListener("mouseover", mouseOver);
-    // document.getElementById("1").addEventListener("mouseout", mouseOut);
-    
+   
     function mouseOver(id) {
         let x = 1;
         let y = id;

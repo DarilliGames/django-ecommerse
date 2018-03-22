@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .forms import SellItemForm
 from .models import SellItem
 from reviews.forms import ReviewForm
@@ -39,19 +39,18 @@ def add_to_cart(request, id):
     
 def review_item(request, id):
     if request.method == "POST":
-        print("Hello doggie")
         score = int(request.POST.get("score"))
         item = get_object_or_404(SellItem, pk=id)
         item.rating += score
         item.reviews += 1
         item.save()
-        form = ReviewForm(request.POST, request.FILES)
+        form = ReviewForm(request.POST)
         if form.is_valid():
                 post = form.save(commit=False)
                 post.author = request.user
                 post.item = item
                 post.rating = score
                 post.save()
-        return redirect('home')
+        return redirect(reverse('product', args=id))
     else:
-        return redirect('home')
+        return redirect(reverse('product', args=id))

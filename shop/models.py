@@ -19,8 +19,9 @@ class SellItem(models.Model):
     image = models.ImageField(upload_to="images", blank=True, null=True)
     rating = models.IntegerField()
     reviews = models.IntegerField()
-
-
+    
+    
+    
     @property
     def average_rating(self):
         return self.rating / self.reviews

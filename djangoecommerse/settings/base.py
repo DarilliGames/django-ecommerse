@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'reviews',
+    'checkout',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -124,6 +125,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+STRIPE_PUBLISH = os.environ.get("")
+STRIPE_SECRET = os.environ.get("")
 
 
 # Static files (CSS, JavaScript, Images)
