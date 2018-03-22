@@ -7,10 +7,28 @@
         {% for p in prods %}
             <div class="col-sm-3">
                 <div class="inner">
-                    <h2>{{ p.title }}</h2>
+                    <h2><a href="{% url 'product' p.id %}">{{ p.title }}</a></h2>
                     <p>{{ p.content }}</p>
                     <p>Price: €{{ p.price }}</p>
-                <img src="{{ MEDIA_URL }}{{ p.image }}" style="max-height:100%; max-width:100%"/>
+                    
+                    {% if p.reviews > 0 %}
+                    <i style="color:gold" class="fa fa-star"></i>
+                    <i {% if p.average_rating > 1.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
+                    <i {% if p.average_rating > 2.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
+                    <i {% if p.average_rating > 3.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
+                    <i {% if p.average_rating > 4.5 %} style="color:gold" {% endif %} class="fa fa-star"></i>
+                    
+                    <p>Rating: {{p.average_rating|floatformat:"1" }} Reviews: {{ p.reviews }}</p>
+                    {% else %}
+                    <p>This Item Has Not Been Reviewed</p>
+                    {% endif %}
+                    <img src="{{ MEDIA_URL }}{{ p.image }}" style="max-height:100%; max-width:100%"/>
+                    <form method="post" action="{% url 'add_to_cart' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="item" value="{{ p.id }}"/>
+                        <input name='ammount' type="number" min="1" max="{{p.max_buy}}" value="1">
+                        <button type="submit">Add To Cart</button>
+                    </form>
                 </div>
             </div>
         

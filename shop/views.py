@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SellItemForm
 from .models import SellItem
+from reviews.forms import ReviewForm
+from reviews.models import Review
+
 # Create your views here.
 
 
@@ -27,4 +30,28 @@ def display_self(request):
         
 def display_product(request, id):
     item = get_object_or_404(SellItem, pk=id)
-    return render(request, "shop/product.html", {"item" : item})
+    reviewform = ReviewForm()
+    reviews = Review.objects.filter(item = id)
+    return render(request, "shop/product.html", {"item" : item, "reviews":reviews, "reviewform":reviewform})
+    
+def add_to_cart(request, id):
+    return redirect('home')
+    
+def review_item(request, id):
+    if request.method == "POST":
+        print("Hello doggie")
+        score = int(request.POST.get("score"))
+        item = get_object_or_404(SellItem, pk=id)
+        item.rating += score
+        item.reviews += 1
+        item.save()
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                post.item = item
+                post.rating = score
+                post.save()
+        return redirect('home')
+    else:
+        return redirect('home')

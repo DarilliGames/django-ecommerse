@@ -17,7 +17,13 @@ class SellItem(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="images", blank=True, null=True)
+    rating = models.IntegerField()
+    reviews = models.IntegerField()
 
+
+    @property
+    def average_rating(self):
+        return self.rating / self.reviews
 
     def __str__(self):
         return self.title

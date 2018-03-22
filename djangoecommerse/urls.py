@@ -22,12 +22,15 @@ from django.conf import settings
 from home.views import get_index
 from accounts import urls as accounts_urls
 from shop import urls as shop_urls
-
+from cart import urls as cart_urls
+from reviews import urls as review_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', get_index, name='home'),
     url(r'^accounts/', include(accounts_urls)),
     url(r'^shop/', include(shop_urls)),
+    url(r'^cart/', include(cart_urls)),
+    url(r'^review/', include(review_urls)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]
