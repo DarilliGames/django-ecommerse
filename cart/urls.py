@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^inccart/(\d+)/', add_count_cart, name='addammount'),
     url(r'^deccart/(\d+)/', dec_count_cart, name='decammount'),
     url(r'^updatecart/(\d+)/', updatecart, name='updatecart'),
+    url(r'^dumpcart/', dumpcart, name='emptycart'),
     
 ]

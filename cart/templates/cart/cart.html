@@ -13,27 +13,26 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Item Total</th>
+            <th>Increase/Decrease/Remove</th>
         </tr>
         </thead>
         <tbody>
         {% for i in cart_items %}
             <tr>
-                <td><img height="100" width="100" src="{{ MEDIA_URL }}{{ i.product.image }}"></td>
+                <td><img style="max-height:100px; max-width:100px" src="{{ MEDIA_URL }}{{ i.product.image }}"></td>
                 <td>{{ i.product.title }}</td>
                 <td>{{ i.product.content }}</td>
                 <td>
                     <form action="{% url 'updatecart' i.id  %}">
                         {% csrf_token %}
-                        <input type="number" name="quantity" value="{{ i.quantity }}"/>
-                        <input type="submit"/>
-                    </form>
-                </td>
+                        <input style="width:50px" type="number" name="quantity" value="{{ i.quantity }}"/>
+                        <input type="submit" value="Update"/>
+                    </form></td>
                 <td>{{ i.product.price }}</td>
                 <td>{{ i.product.ptotal }}</td>
-                <td><a href="{% url 'addammount' i.id  %}"        class="btn btn-success" role="button"><i class="fa fa-arrow-up"></i></a>
-                    <a href="{% url 'decammount' i.id  %}" class="btn btn-warning" role="button"><i class="fa fa-arrow-down"></i></a>
-                    <a href="{% url 'removefromcart' i.id  %}"  class="btn btn-danger" role="button"><i class="fa fa-trash"></i></a>
-                    </td>
+                <td><a href="{% url 'addammount' i.id  %}"        class="btn btn-success" role="button"><i class="fa fa-arrow-up"></i></a> 
+                    <a href="{% url 'decammount' i.id  %}" class="btn btn-warning" role="button"><i class="fa fa-arrow-down"></i></a> 
+                    <a href="{% url 'removefromcart' i.id  %}"  class="btn btn-danger" role="button"><i class="fa fa-minus-circle"></i></a></td>
             </tr>
         {% endfor %}
         <tr>
@@ -41,8 +40,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><a href="{% url 'checkout' %}" class="btn btn-success" role="button">Checkout</a></td>
+            <td></td>
             <td>Total: €{{ total }}</td>
+            <td><a href="{% url 'checkout' %}" class="btn btn-success" role="button"><i class="fa fa-credit-card"></i> Finish</a><a href="{% url 'emptycart' %}"  class="btn btn-danger" role="button">Empty <i class="fa fa-trash"></i></a></td>
         </tr>
         </tbody>
     </table>

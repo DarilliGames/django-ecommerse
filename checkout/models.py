@@ -11,7 +11,7 @@ class Order(models.Model):
     street_address_2 = models.CharField(max_length=40, blank=False)
     county = models.CharField(max_length=40, blank=False)
     date = models.DateField(auto_now_add=True)
-
+    
     def __str__(self):
         return "{0}-{1}-{2}".format(self.id, self.date, self.full_name)
         
@@ -22,4 +22,4 @@ class OrderLineItem(models.Model):
     quantity = models.IntegerField(blank=False)
     
     def __str__(self):
-        return "{0} {1} @ {2}".format(self.quantity, self.product.name, self.product.price)
+        return "{0} {1} @ {2}".format(self.quantity, self.product.title, self.product.price)

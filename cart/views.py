@@ -10,7 +10,7 @@ def add_to_cart(request):
     cart[id] = cart.get(id, quantity)
     request.session["cart"] = cart
     print(cart)
-    return redirect('cart')
+    return redirect('shelf')
 
 def remove_from_cart(request, id):
     cart = request.session.get('cart', {})
@@ -38,3 +38,7 @@ def updatecart(request, id):
     cart[id] = int(quantity)
     request.session["cart"] = cart
     return redirect('cart')
+    
+def dumpcart(request):
+    del request.session["cart"]
+    return redirect('home')
