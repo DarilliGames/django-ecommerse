@@ -127,8 +127,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-STRIPE_PUBLISH = os.environ.get("")
-STRIPE_SECRET = os.environ.get("")
+STRIPE_PUBLISH = os.environ.get("STRIPE_PUBLISH")
+STRIPE_SECRET = os.environ.get("STRIPE_SECRET")
 
 
 # Static files (CSS, JavaScript, Images)

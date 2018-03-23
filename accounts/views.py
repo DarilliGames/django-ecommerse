@@ -3,12 +3,19 @@ from django.contrib import messages, auth
 from .forms import UserLoginForm, UserRegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+ 
 
 
-# Create your views here.
+                                    #                   Log out redirects to the same page you were on                  #
+
+
+
 def logout(request):
     auth.logout(request)
-    return redirect("home")
+    url = request.META.get('HTTP_REFERER')
+    messages.success(request, "you logged out successfully")
+    return HttpResponseRedirect(url)
 
 def login(request):
     for k in request.GET:

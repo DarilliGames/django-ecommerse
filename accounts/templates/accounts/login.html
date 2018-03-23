@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
-                <form role="form" method="post">
+                <form role="form" method="POST">
                     <legend>Login</legend>
                     {% csrf_token %}
                     {{ form | as_bootstrap }}
