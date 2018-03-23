@@ -1,0 +1,51 @@
+{% extends "home/base.html" %}
+{% load static from staticfiles %}
+
+
+{% block content %}
+<div>
+ 
+
+    <form action="{% url 'checkorders' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="orderid" value="Enter Your Order Number"/>
+        <!--<input type="text" name="" value="Enter Your Password Number"/>-->
+        <input type="submit" name="Submit"/>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Item Total</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in order.line_items.all %}
+            <tr>
+                <td><img style="max-height:100px; max-width:100px" src="{{ MEDIA_URL }}{{ i.product.image }}"></td>
+                <td>{{ i.product.title }}</td>
+                <td>{{ i.product.content }}</td>
+                <td>{{ i.quantity }}</td>
+                <td>{{ i.product.price }}</td>
+                <td>{{ i.product.ptotal }}</td>
+                
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    {{ order }}
+    {% for line in order.line_items.all %}
+        <p>{{ line.product.title }} {{ line.quantity }} {{ line.product.price }}</p>
+        
+    {% endfor %}
+    
+</div>
+
+
+{% endblock %}

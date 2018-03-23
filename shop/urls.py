@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^item/(\d+)', display_product, name='product'),
     url(r'^addcart/(\d+)', add_to_cart, name='addToCart'),
     url(r'^reviewitem/(\d+)', review_item, name='reviewit'),
+    url(r'^search/', search_shop, name='searchshop'),
 ]

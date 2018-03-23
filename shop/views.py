@@ -54,3 +54,7 @@ def review_item(request, id):
         return redirect(reverse('product', args=id))
     else:
         return redirect(reverse('product', args=id))
+    
+def search_shop(request):
+    prods= SellItem.objects.filter(title__icontains=request.GET.get("query"))
+    return render(request, "shop/displayshelf.html", {'prods':prods})
